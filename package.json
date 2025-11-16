@@ -1,6 +1,6 @@
 {
-    "name": "my-app",
-    "productName": "my-app",
+    "name": "SparkyTodos",
+    "productName": "SparkyTodos",
     "version": "1.0.0",
     "type": "module",
     "description": "My Electron application description",
