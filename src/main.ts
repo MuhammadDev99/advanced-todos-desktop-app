@@ -1,6 +1,6 @@
 // src/main.ts
 
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, Tray } from 'electron';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
@@ -16,19 +16,20 @@ if (started) {
 
 const openWindows = new Map<string, BrowserWindow>();
 
+let mainWindow: BrowserWindow | null = null;
+let tray: Tray | null = null;
+
 const createWindow = () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     title: 'My Awesome Todo App',
-    // This path is now correct because `extraResource` will copy the assets folder
     icon: path.join(__dirname, '../../assets/icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
 
-  // --- HIDE THE DEFAULT MENU BAR ---
   mainWindow.setMenuBarVisibility(false);
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -39,9 +40,22 @@ const createWindow = () => {
     );
   }
 
-  // Optional: You probably want to remove this for production
-  // mainWindow.webContents.openDevTools(); 
+  mainWindow.on('close', (event) => {
+    if (!app.isQuitting) {
+      event.preventDefault();
+      mainWindow?.hide();
+    }
+  });
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 };
+
+app.on('before-quit', () => {
+  app.isQuitting = true;
+});
+
 
 app.on('ready', () => {
   ipcMain.handle('get-tasks', () => store.get('tasks', []));
@@ -116,6 +130,40 @@ app.on('ready', () => {
   });
 
   createWindow();
+
+  // --- START: TRAY ICON PATH FIX ---
+  // Create a path to the icon that works in both development and production.
+  // Your `extraResource` config copies the 'assets' folder to the 'resources'
+  // directory in the packaged app. This code correctly finds it.
+  const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets/icon.png')
+    : path.join(__dirname, '../../assets/icon.png');
+  // --- END: TRAY ICON PATH FIX ---
+
+  tray = new Tray(iconPath);
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: () => {
+        mainWindow?.show();
+      },
+    },
+    {
+      label: 'Quit',
+      click: () => {
+        app.isQuitting = true;
+        app.quit();
+      },
+    },
+  ]);
+
+  tray.setToolTip('SparkyTodos');
+  tray.setContextMenu(contextMenu);
+
+  tray.on('click', () => {
+    mainWindow?.show();
+  });
 });
 
 app.on('window-all-closed', () => {
@@ -123,5 +171,9 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  if (mainWindow === null) {
+    createWindow();
+  } else {
+    mainWindow.show();
+  }
 });
