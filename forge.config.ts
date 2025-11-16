@@ -22,7 +22,7 @@ const config: ForgeConfig = {
     new MakerSquirrel({
       // --- START: INSTALLER CONFIGURATION ---
       // The name of your application
-      name: "my_app", // No spaces allowed here
+      name: "SparkyTodos", // No spaces allowed here
 
       // The author of the application (your name or company)
       authors: 'MuhammadDev99',
