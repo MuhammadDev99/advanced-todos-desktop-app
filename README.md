@@ -1,6 +1,6 @@
 # ✨ SparkyTodos
 
-![SparkyTodos App Screenshot](https://i.imgur.com/8a6P2h9.png)
+<img width="331" height="446" alt="Screenshot 2025-11-16 165211" src="https://github.com/user-attachments/assets/ad9aea54-d120-42de-80b3-99807ef2e6aa" />
 
 SparkyTodos is a modern, feature-rich desktop to-do list application built for productivity. It goes beyond a simple checklist by integrating a task timer, difficulty settings, and a clean, draggable interface to help you focus and manage your workflow effectively.
 
@@ -41,7 +41,7 @@ To run SparkyTodos on your local machine, follow these steps.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/SparkyTodos.git
+    git clone https://github.com/MuhammadDev99/advanced-todos-desktop-app.git
     cd SparkyTodos
     ```
 
