@@ -1,6 +1,83 @@
+/* --- START: CSS Variables for Theming --- */
+:root {
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --header-text-color: #333;
+    --input-background-color: #fff;
+    --input-border-color: #ccc;
+    --input-focus-border-color: #007aff;
+    --input-focus-shadow-color: rgba(0, 123, 255, 0.25);
+    --button-background-color: #fff;
+    --button-border-color: #adadad;
+    --button-hover-background-color: #e6e6e6;
+    --button-active-background-color: #d4d4d4;
+    --task-list-background-color: #ffffff;
+    --task-list-border-color: #c9c9c9;
+    --task-item-border-bottom-color: #e0e0e0;
+    --task-done-text-color: #888;
+    --task-duration-background-color: #eee;
+    --task-duration-text-color: #333;
+    --checkbox-border-color: #ccc;
+    --checkbox-hover-border-color: #007aff;
+    --checkbox-checked-border-color: #28a745;
+    --checkbox-checked-background-color: #eafbf0;
+    --icon-button-hover-background-color: #e9e9e9;
+    --remove-button-hover-background-color: #ffe0e0;
+    --toolbar-background-color: #f8f9fa;
+    --toolbar-border-color: #dee2e6;
+    --select-background-color: #fff;
+    --select-border-color: #ced4da;
+    --clear-button-text-color: #007bff;
+    --clear-button-hover-text-color: #0056b3;
+    --task-status-text-color: #6c757d;
+    --grabbing-background-color: #eef7ff;
+    --progress-bar-background: #e0e0e0;
+    --progress-bar-fill: #4caf50;
+    --remaining-time-color: #000;
+}
+
+[data-theme='dark'] {
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --header-text-color: #f0f0f0;
+    --input-background-color: #2a2a2a;
+    --input-border-color: #444;
+    --input-focus-border-color: #007aff;
+    --button-background-color: #333;
+    --button-border-color: #555;
+    --button-hover-background-color: #444;
+    --button-active-background-color: #555;
+    --task-list-background-color: #252525;
+    --task-list-border-color: #3a3a3a;
+    --task-item-border-bottom-color: #3a3a3a;
+    --task-done-text-color: #777;
+    --task-duration-background-color: #3a3a3a;
+    --task-duration-text-color: #ccc;
+    --checkbox-border-color: #555;
+    --checkbox-hover-border-color: #007aff;
+    --checkbox-checked-border-color: #28a745;
+    --checkbox-checked-background-color: #2a3b2e;
+    --icon-button-hover-background-color: #444;
+    --remove-button-hover-background-color: #5a2d2d;
+    --toolbar-background-color: #2c2c2c;
+    --toolbar-border-color: #444;
+    --select-background-color: #333;
+    --select-border-color: #555;
+    --clear-button-text-color: #4dabf7;
+    --clear-button-hover-text-color: #82c9ff;
+    --task-status-text-color: #aaa;
+    --grabbing-background-color: #2c3e50;
+    --progress-bar-background: #444;
+    --progress-bar-fill: #4caf50;
+    --remaining-time-color: #fff;
+}
+
+/* --- END: CSS Variables for Theming --- */
+
 /* General App Container */
 .appContainer {
-    background-color: #f0f0f0;
+    background-color: var(--background-color);
+    color: var(--text-color);
     padding: 12px;
     height: 100vh;
     box-sizing: border-box;
@@ -8,6 +85,7 @@
     flex-direction: column;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     user-select: none;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 /* Header with Logo */
@@ -27,7 +105,7 @@
 .header h2 {
     font-size: 16px;
     margin: 0;
-    color: #333;
+    color: var(--header-text-color);
 }
 
 /* Input form at the top */
@@ -42,44 +120,44 @@
     flex-grow: 1;
     padding: 6px 8px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     border-radius: 4px;
-    background-color: #fff;
-    color: #333;
+    background-color: var(--input-background-color);
+    color: var(--text-color);
     min-width: 0;
-    /* Prevents input from overflowing flex container */
 }
 
 .input:focus,
 .editInput:focus {
     outline: none;
-    border-color: #007aff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 2px var(--input-focus-shadow-color);
 }
 
 .button {
     padding: 6px 16px;
     font-size: 14px;
     border-radius: 4px;
-    border: 1px solid #adadad;
-    background-color: #fff;
+    border: 1px solid var(--button-border-color);
+    background-color: var(--button-background-color);
+    color: var(--text-color);
     cursor: pointer;
     transition: background-color 0.1s ease;
 }
 
 .button:hover {
-    background-color: #e6e6e6;
+    background-color: var(--button-hover-background-color);
 }
 
 .button:active {
-    background-color: #d4d4d4;
+    background-color: var(--button-active-background-color);
 }
 
 /* Task List Styles */
 .taskList {
     flex-grow: 1;
-    background-color: #ffffff;
-    border: 1px solid #c9c9c9;
+    background-color: var(--task-list-background-color);
+    border: 1px solid var(--task-list-border-color);
     border-radius: 4px;
     overflow-y: auto;
     padding: 0;
@@ -90,7 +168,7 @@
     align-items: center;
     gap: 10px;
     padding: 8px 10px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--task-item-border-bottom-color);
 }
 
 .taskItem:last-child {
@@ -101,10 +179,9 @@
     opacity: 1;
 }
 
-
-.taskItem.done .taskName {
+.taskItem.completed .taskName {
     text-decoration: line-through;
-    color: #888;
+    color: var(--task-done-text-color);
 }
 
 /* START: Add or replace these styles */
@@ -130,18 +207,12 @@
 
 /* NEW: Style for the duration badge */
 .taskDuration {
-    background-color: #eee;
-    /* Light grey background */
-    color: #333;
-    /* Dark text color */
+    background-color: var(--task-duration-background-color);
+    color: var(--task-duration-text-color);
     padding: 2px 8px;
-    /* Vertical and horizontal padding */
     border-radius: 12px;
-    /* Makes it a rounded "pill" shape */
     font-size: 12px;
-    /* Smaller font size */
     font-weight: 500;
-    /* Prevents the badge from shrinking if the task name is long */
     margin-right: auto;
 }
 
@@ -150,7 +221,7 @@
 .checkboxIcon {
     width: 20px;
     height: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid var(--checkbox-border-color);
     border-radius: 50%;
     padding: 3px;
     box-sizing: border-box;
@@ -159,18 +230,24 @@
 }
 
 .checkboxIcon:hover {
-    border-color: #007aff;
+    border-color: var(--checkbox-hover-border-color);
 }
 
 .checkboxIcon.checked {
-    border-color: #28a745;
-    background-color: #eafbf0;
+    border-color: var(--checkbox-checked-border-color);
+    background-color: var(--checkbox-checked-background-color);
 }
 
 .checkMarkImage {
     display: block;
     width: 100%;
     height: 100%;
+    /* Invert color in dark mode */
+    filter: invert(var(--dark-mode-filter, 0));
+}
+
+[data-theme='dark'] .checkMarkImage {
+    --dark-mode-filter: 1;
 }
 
 .taskActions {
@@ -178,8 +255,6 @@
     display: flex;
     gap: 8px;
     margin-left: auto;
-    /* background-color: #0056b3; */
-    /* flex-grow: 1; */
 }
 
 .taskItem:hover .taskActions {
@@ -197,24 +272,29 @@
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.15s ease;
-    transition: opacity 0.15s ease;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
     opacity: 0.5;
-}
-
-.iconButton:hover {
-    background-color: #e9e9e9;
-    opacity: 1;
 }
 
 .iconButton img {
     width: 100%;
     height: 100%;
     transition: opacity 0.15s ease;
+    filter: invert(var(--dark-mode-icon-filter, 0));
+}
+
+[data-theme='dark'] .iconButton img {
+    --dark-mode-icon-filter: 1;
+}
+
+
+.iconButton:hover {
+    background-color: var(--icon-button-hover-background-color);
+    opacity: 1;
 }
 
 .removeButton:hover {
-    background-color: #ffe0e0;
+    background-color: var(--remove-button-hover-background-color);
 }
 
 .toolbar {
@@ -222,8 +302,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
+    background-color: var(--toolbar-background-color);
+    border: 1px solid var(--toolbar-border-color);
     border-radius: 5px;
     margin-bottom: 10px;
 }
@@ -238,12 +318,13 @@
 .filter select {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #ced4da;
-    background-color: #fff;
+    border: 1px solid var(--select-border-color);
+    background-color: var(--select-background-color);
+    color: var(--text-color);
 }
 
 .clearButton {
-    color: #007bff;
+    color: var(--clear-button-text-color);
     cursor: pointer;
     background-color: transparent;
     border: none;
@@ -253,23 +334,22 @@
 
 .clearButton:hover {
     text-decoration: underline;
-    color: #0056b3;
+    color: var(--clear-button-hover-text-color);
 }
 
 .taskStatus {
     font-size: 14px;
-    color: #6c757d;
+    color: var(--task-status-text-color);
 }
 
 
 /* drag and drop styles */
 .grabbing {
     cursor: grabbing;
-    background: #eef7ff;
+    background: var(--grabbing-background-color);
     opacity: 0.9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .taskActions {
     opacity: 0;
@@ -317,45 +397,34 @@
 }
 
 /* --- Difficulty Styles --- */
-
-/* Add a thicker left border to indicate difficulty */
 .taskItem.easy {
     border-left: 4px solid #4caf50;
-    /* Green */
 }
 
 .taskItem.medium {
     border-left: 4px solid #ff9800;
-    /* Orange */
 }
 
 .taskItem.hard {
     border-left: 4px solid #f44336;
-    /* Red */
-}
-
-.taskItem.completed .taskName {
-    text-decoration: line-through;
-    color: #888;
 }
 
 /* --- Style for the Difficulty Select Dropdown --- */
 .difficultySelect {
     padding: 4px 6px;
     font-size: 13px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--select-border-color);
     border-radius: 4px;
-    background-color: #fff;
-    color: #333;
+    background-color: var(--select-background-color);
+    color: var(--text-color);
     margin-left: 10px;
-    /* Add some spacing from the input field */
     cursor: pointer;
 }
 
 .difficultySelect:focus {
     outline: none;
-    border-color: #007aff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 2px var(--input-focus-shadow-color);
 }
 
 .playButton {
@@ -372,7 +441,7 @@
 .progressContainer {
     display: flex;
     align-items: center;
-    background-color: #e0e0e0;
+    background-color: var(--progress-bar-background);
     border-radius: 4px;
     height: 20px;
     margin-top: 5px;
@@ -381,7 +450,7 @@
 }
 
 .progressBar {
-    background-color: #4caf50;
+    background-color: var(--progress-bar-fill);
     height: 100%;
     border-radius: 4px;
     transition: width 0.5s ease-in-out;
@@ -390,7 +459,7 @@
 .remainingTime {
     position: absolute;
     right: 10px;
-    color: #000;
+    color: var(--remaining-time-color);
     font-size: 12px;
     font-weight: bold;
 }

@@ -14,6 +14,10 @@ import stopIcon from '/images/close-black.png';
 import editIcon from '/images/edit-black.png';
 import removeIcon from '/images/garbage-black.png';
 import startIcon from '/images/play-button-black.png';
+// --- SOLUTION: Import the new theme icons ---
+import darkModeIcon from '/images/dark-mode-black.png';
+import lightModeIcon from '/images/light-mode-black.png';
+
 
 // --- State Signals ---
 const filterOptions = ["all", "active", "completed"] as const;
@@ -25,6 +29,7 @@ const activeTaskId = signal<number | null>(null);
 const activeTaskWindows = signal<string[]>([]);
 const remainingTime = signal<number>(0);
 const progressInterval = signal<NodeJS.Timeout | null>(null);
+const theme = signal<'light' | 'dark'>('light'); // Default theme is 'light'
 
 // --- Computed Signals ---
 const activeTask = computed(() => tasks.value.find((t) => t.id === activeTaskId.value));
@@ -51,7 +56,6 @@ async function showTaskTimeElapsedDialogue(task: Task) {
         height: 250,
     };
 
-    // UPDATED: Using the new callback-based approach.
     window.electronAPI.createWindow({
         route: 'task-time-elapsed-dialogue',
         options: windowOptions,
@@ -101,7 +105,6 @@ async function startTask(task: Task): Promise<void> {
     };
 
     try {
-        // UPDATED: We don't need a callback for the overlay, so we just call it without the second argument.
         const { windowId: newWindowId } = await window.electronAPI.createWindow({
             route: 'overlay',
             options: overlayOptions,
@@ -124,9 +127,20 @@ function stopTask(taskId: number): void {
     closeAllWindows();
 }
 
+function toggleTheme() {
+    const newTheme = theme.value === 'light' ? 'dark' : 'light';
+    theme.value = newTheme;
+    localStorage.setItem('theme', newTheme);
+}
+
 // --- Main Component ---
 const Home = () => {
     useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+            theme.value = savedTheme;
+        }
+
         loadTasks();
         autoSaveChanges();
 
@@ -136,6 +150,7 @@ const Home = () => {
             }
         };
     }, []);
+
     useEffect(() => {
         if (grabbedTaskId.value && hoveredTaskId.value) {
             const grabbedTask = tasks.value.find(task => task.id === grabbedTaskId.value);
@@ -152,6 +167,7 @@ const Home = () => {
             });
         }
     }, [grabbedTaskId.value, hoveredTaskId.value]);
+
     useEffect(() => {
         if (grabbedTaskId.value !== null) {
             document.body.style.cursor = 'grabbing';
@@ -161,7 +177,6 @@ const Home = () => {
             document.body.style.cursor = 'default';
         };
     }, [grabbedTaskId.value]);
-
 
     const {
         addTask,
@@ -185,12 +200,19 @@ const Home = () => {
     const completedTasksCount = tasks.value.filter(task => task.completed).length;
 
     return (
-        <div onMouseUp={(e) => grabbedTaskId.value = null} className={styles.appContainer}>
+        <div onMouseUp={() => grabbedTaskId.value = null} className={styles.appContainer} data-theme={theme.value}>
             <form className={styles.inputContainer} onSubmit={addTask}>
                 <input className={styles.input} placeholder="New task..." value={newTaskName.value} onChange={(e) => (newTaskName.value = e.target.value)} />
                 <button type="submit" className={styles.button}>Add</button>
             </form>
             <div className={styles.toolbar}>
+                <button onClick={toggleTheme} className={styles.iconButton} title="Toggle Theme">
+                    {theme.value === 'light' ? (
+                        <img src={darkModeIcon} alt="Switch to Dark Mode" />
+                    ) : (
+                        <img src={lightModeIcon} alt="Switch to Light Mode" />
+                    )}
+                </button>
                 <div className={styles.filter}>
                     <label htmlFor="filter-select">Show:</label>
                     <select
@@ -205,6 +227,8 @@ const Home = () => {
                     </select>
                 </div>
                 <div className={styles.actions}>
+                    {/* --- SOLUTION: Replace the text button with a conditional icon button --- */}
+
                     <button onClick={clearTasks} className={styles.clearButton}>
                         Clear All
                     </button>
@@ -223,15 +247,18 @@ const Home = () => {
             <div className={styles.taskList}>
                 {sortedAndFilteredTasks.map((task) => {
                     const isGrabbed = grabbedTaskId.value === task.id;
-                    const taskItemClasses = [styles.taskItem, task.completed ? styles.completed : '',
-                    isGrabbed ? styles.grabbing : '',
-                    styles[task.difficulty]].filter(Boolean).join(' ');
+                    const taskItemClasses = [
+                        styles.taskItem,
+                        task.completed ? styles.completed : '',
+                        isGrabbed ? styles.grabbing : '',
+                        styles[task.difficulty]
+                    ].filter(Boolean).join(' ');
                     const isActiveTask = activeTaskId.value === task.id;
                     const progressPercentage = activeTask.value && activeTask.value.duration > 0
                         ? ((activeTask.value.duration - remainingTime.value) / activeTask.value.duration) * 100
                         : 0;
 
-                    return <div onMouseEnter={(e) => hoveredTaskId.value = task.id} onMouseDown={(e) => {
+                    return <div onMouseEnter={() => hoveredTaskId.value = task.id} onMouseDown={(e) => {
                         if (e.target === e.currentTarget) {
                             grabbedTaskId.value = task.id;
                         }
