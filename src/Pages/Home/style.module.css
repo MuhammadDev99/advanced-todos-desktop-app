@@ -1,0 +1,396 @@
+/* General App Container */
+.appContainer {
+    background-color: #f0f0f0;
+    padding: 12px;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    user-select: none;
+}
+
+/* Header with Logo */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.logo {
+    width: 24px;
+    height: 24px;
+}
+
+.header h2 {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+}
+
+/* Input form at the top */
+.inputContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.input,
+.editInput {
+    flex-grow: 1;
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    min-width: 0;
+    /* Prevents input from overflowing flex container */
+}
+
+.input:focus,
+.editInput:focus {
+    outline: none;
+    border-color: #007aff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.button {
+    padding: 6px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #adadad;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.button:hover {
+    background-color: #e6e6e6;
+}
+
+.button:active {
+    background-color: #d4d4d4;
+}
+
+/* Task List Styles */
+.taskList {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border: 1px solid #c9c9c9;
+    border-radius: 4px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.taskItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.taskItem:last-child {
+    border-bottom: none;
+}
+
+.taskItem:hover .taskActions {
+    opacity: 1;
+}
+
+
+.taskItem.done .taskName {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* START: Add or replace these styles */
+
+/* NEW: This container holds the task name and the duration badge */
+.taskNameContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: grab;
+    /* Indicates this area is draggable */
+}
+
+/* UPDATED: The taskName style is simpler now */
+.taskName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+    /* Adds space between the name and the duration badge */
+}
+
+/* NEW: Style for the duration badge */
+.taskDuration {
+    background-color: #eee;
+    /* Light grey background */
+    color: #333;
+    /* Dark text color */
+    padding: 2px 8px;
+    /* Vertical and horizontal padding */
+    border-radius: 12px;
+    /* Makes it a rounded "pill" shape */
+    font-size: 12px;
+    /* Smaller font size */
+    font-weight: 500;
+    /* Prevents the badge from shrinking if the task name is long */
+    margin-right: auto;
+}
+
+/* END: Add or replace these styles */
+/* Custom Checkbox using CheckMark.svg */
+.checkboxIcon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checkboxIcon:hover {
+    border-color: #007aff;
+}
+
+.checkboxIcon.checked {
+    border-color: #28a745;
+    background-color: #eafbf0;
+}
+
+.checkMarkImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.taskActions {
+    opacity: 0;
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    /* background-color: #0056b3; */
+    /* flex-grow: 1; */
+}
+
+.taskItem:hover .taskActions {
+    opacity: 1;
+}
+
+.iconButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    transition: opacity 0.15s ease;
+    opacity: 0.5;
+}
+
+.iconButton:hover {
+    background-color: #e9e9e9;
+    opacity: 1;
+}
+
+.iconButton img {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.15s ease;
+}
+
+.removeButton:hover {
+    background-color: #ffe0e0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.filter,
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+}
+
+.clearButton {
+    color: #007bff;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+}
+
+.clearButton:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.taskStatus {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+
+/* drag and drop styles */
+.grabbing {
+    cursor: grabbing;
+    background: #eef7ff;
+    opacity: 0.9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.taskActions {
+    opacity: 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    /* Align all action items vertically */
+}
+
+/* NEW: Container for the up/down buttons */
+.reorderControls {
+    display: flex;
+    flex-direction: column;
+    /* Stack the buttons vertically */
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+
+.taskItem:hover .reorderControls {
+    opacity: 1;
+}
+
+.reorderControls .iconButton {
+    height: 16px;
+    /* Make reorder buttons smaller */
+    width: 16px;
+    font-size: 10px;
+    /* Adjust font size for arrows */
+    line-height: 1;
+    /* Ensure text is centered */
+    padding: 0;
+    opacity: 1;
+    /* Override parent opacity for direct control */
+}
+
+/* Style for disabled buttons */
+.iconButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.iconButton:hover:disabled {
+    background-color: transparent;
+    /* Don't show hover effect when disabled */
+}
+
+/* --- Difficulty Styles --- */
+
+/* Add a thicker left border to indicate difficulty */
+.taskItem.easy {
+    border-left: 4px solid #4caf50;
+    /* Green */
+}
+
+.taskItem.medium {
+    border-left: 4px solid #ff9800;
+    /* Orange */
+}
+
+.taskItem.hard {
+    border-left: 4px solid #f44336;
+    /* Red */
+}
+
+.taskItem.completed .taskName {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* --- Style for the Difficulty Select Dropdown --- */
+.difficultySelect {
+    padding: 4px 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    margin-left: 10px;
+    /* Add some spacing from the input field */
+    cursor: pointer;
+}
+
+.difficultySelect:focus {
+    outline: none;
+    border-color: #007aff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.playButton {
+    margin-right: auto;
+}
+
+.taskDetails {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.progressContainer {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 20px;
+    margin-top: 5px;
+    position: relative;
+    width: 100%;
+}
+
+.progressBar {
+    background-color: #4caf50;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease-in-out;
+}
+
+.remainingTime {
+    position: absolute;
+    right: 10px;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+}

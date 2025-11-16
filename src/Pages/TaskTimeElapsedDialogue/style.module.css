@@ -1,0 +1,83 @@
+.dialogue {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.message {
+    font-size: 1.25rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.taskName {
+    font-weight: 600;
+    color: #007aff;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.completedButton {
+    background-color: #34c759;
+    color: white;
+}
+
+.completedButton:hover {
+    background-color: #2fb352;
+}
+
+.extendGroup {
+    display: flex;
+    gap: 8px;
+}
+
+.extendButton {
+    flex-grow: 1;
+    background-color: #ff9500;
+    color: white;
+}
+
+.extendButton:hover {
+    background-color: #e68600;
+}
+
+.durationSelect {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f2f2f7;
+    font-size: 1rem;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #555;
+}
