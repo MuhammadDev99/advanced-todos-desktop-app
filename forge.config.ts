@@ -12,18 +12,27 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
-    // --- START: ICON SOLUTION ---
-    icon: 'assets/icon', // NOTE: No file extension here! Forge handles it.
+    icon: 'assets/icon', // No file extension needed here
     extraResource: [
-      'assets' // This tells Forge to copy the entire 'assets' folder
+      'assets'
     ]
-    // --- END: ICON SOLUTION ---
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
-      // --- Optional but recommended for Windows ---
+      // --- START: INSTALLER CONFIGURATION ---
+      // The name of your application
+      name: "my_app", // No spaces allowed here
+
+      // The author of the application (your name or company)
+      authors: 'MuhammadDev99',
+
+      // A description of the application
+      description: 'My Awesome Todo Application',
+
+      // The icon for the installer itself
       setupIcon: 'assets/icon.ico'
+      // --- END: INSTALLER CONFIGURATION ---
     }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
