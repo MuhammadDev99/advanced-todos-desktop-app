@@ -41,7 +41,7 @@ To run SparkyTodos on your local machine, follow these steps.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/SparkyTodos.git
+    git clone https://github.com/MuhammadDev99/advanced-todos-desktop-app.git
     cd SparkyTodos
     ```
 
